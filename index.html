@@ -1,625 +1,702 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NUKU Inmobiliaria — Encontrá tu lugar</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NUKU Inmobiliaria — Propiedades en Córdoba</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream: #f7f4ef;
-      --warm-white: #fdfcf9;
-      --sand: #e8e0d0;
-      --taupe: #c4b8a4;
-      --dark: #1c1a18;
-      --charcoal: #2d2a26;
-      --text: #3d3a35;
-      --text-light: #7a756d;
-      --accent: #8b7355;
-      --accent-light: #c4a882;
-      --green-wa: #25d366;
-      --radius: 16px;
-      --radius-lg: 24px;
-      --shadow: 0 4px 24px rgba(28,26,24,.08);
-      --shadow-hover: 0 12px 48px rgba(28,26,24,.16);
+      --white:      #ffffff;
+      --off-white:  #faf9f7;
+      --light:      #f3f1ee;
+      --border:     #e8e4de;
+      --terracota:  #c4694a;
+      --terra-dk:   #a3523a;
+      --terra-lt:   #f0ddd6;
+      --cafe:       #6b4c3b;
+      --cafe-lt:    #d4c3b8;
+      --text:       #1e1a17;
+      --text-mid:   #5a5049;
+      --text-light: #9a8f86;
+      --radius-sm:  8px;
+      --radius:     14px;
+      --radius-lg:  22px;
+      --radius-xl:  32px;
+      --shadow-sm:  0 2px 12px rgba(30,26,23,.07);
+      --shadow:     0 6px 28px rgba(30,26,23,.10);
+      --shadow-lg:  0 16px 56px rgba(30,26,23,.14);
     }
 
     html { scroll-behavior: smooth; }
-
     body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--warm-white);
+      font-family: 'Jost', sans-serif;
+      background: var(--white);
       color: var(--text);
       overflow-x: hidden;
     }
 
-    /*  NAV  */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 40px;
-      background: rgba(253,252,249,.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(196,184,164,.3);
-      transition: padding .3s;
+    /* ── DEMO STRIP ── */
+    .demo-strip {
+      background: var(--terracota);
+      color: #fff;
+      text-align: center;
+      padding: 10px 20px;
+      font-size: .78rem;
+      letter-spacing: .04em;
     }
-    nav.scrolled { padding: 14px 40px; }
+    .demo-strip strong { font-weight: 600; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      height: 66px;
+      transition: box-shadow .3s;
+    }
+    nav.shadowed { box-shadow: var(--shadow-sm); }
 
     .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.7rem;
-      font-weight: 600;
-      letter-spacing: .08em;
-      color: var(--dark);
-      text-decoration: none;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem; font-weight: 700;
+      color: var(--text); text-decoration: none;
+      letter-spacing: .04em;
     }
-    .nav-logo span { color: var(--accent); }
+    .nav-logo span { color: var(--terracota); }
 
-    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
     .nav-links a {
-      font-size: .85rem; letter-spacing: .06em; text-transform: uppercase;
-      color: var(--text-light); text-decoration: none; font-weight: 500;
+      font-size: .82rem; letter-spacing: .07em; text-transform: uppercase;
+      font-weight: 500; color: var(--text-mid); text-decoration: none;
       transition: color .2s;
     }
-    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover { color: var(--terracota); }
 
-    .nav-cta {
-      background: var(--dark); color: var(--cream) !important;
-      padding: 10px 22px; border-radius: 50px;
-      font-weight: 500 !important; transition: background .2s, transform .2s !important;
+    .nav-pill {
+      background: var(--terracota); color: #fff !important;
+      padding: 9px 22px; border-radius: 50px;
+      transition: background .2s, transform .15s !important;
     }
-    .nav-cta:hover { background: var(--accent) !important; transform: translateY(-1px); }
+    .nav-pill:hover { background: var(--terra-dk) !important; transform: translateY(-1px); }
 
-    /*  HERO  */
+    /* ── HERO ── */
     .hero {
-      min-height: 100vh;
-      display: flex; align-items: center;
-      padding: 120px 40px 80px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, var(--cream) 0%, #ede8e0 40%, var(--sand) 100%);
-      z-index: 0;
-    }
-    .hero-bg::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(196,168,130,.18) 0%, transparent 70%);
-    }
-    /* Decorative circles */
-    .hero-deco {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(196,168,130,.12);
-      z-index: 0;
-    }
-    .hero-deco-1 { width: 600px; height: 600px; top: -100px; right: -100px; }
-    .hero-deco-2 { width: 300px; height: 300px; bottom: 60px; left: -80px; background: rgba(139,115,85,.08); }
-
-    .hero-inner {
-      position: relative; z-index: 1;
-      max-width: 1200px; margin: 0 auto; width: 100%;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
-    }
-
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(139,115,85,.12); border: 1px solid rgba(139,115,85,.25);
-      padding: 6px 16px; border-radius: 50px;
-      font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 24px;
-      animation: fadeUp .8s ease both;
-    }
-    .hero-badge::before { content: ''; font-size: .5rem; }
-
-    .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 5vw, 5rem);
-      font-weight: 300;
-      line-height: 1.1;
-      color: var(--dark);
-      animation: fadeUp .8s ease .1s both;
-    }
-    .hero h1 em { font-style: italic; color: var(--accent); }
-
-    .hero-sub {
-      margin-top: 20px; font-size: 1rem; color: var(--text-light);
-      line-height: 1.7; max-width: 420px;
-      animation: fadeUp .8s ease .2s both;
-    }
-
-    .hero-actions {
-      margin-top: 36px; display: flex; gap: 16px; flex-wrap: wrap;
-      animation: fadeUp .8s ease .3s both;
-    }
-    .btn-primary {
-      background: var(--dark); color: var(--cream);
-      padding: 14px 32px; border-radius: 50px; border: none;
-      font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 500;
-      cursor: pointer; text-decoration: none; display: inline-block;
-      transition: background .2s, transform .2s, box-shadow .2s;
-    }
-    .btn-primary:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(139,115,85,.3); }
-
-    .btn-outline {
-      background: transparent; color: var(--dark);
-      padding: 14px 32px; border-radius: 50px; border: 1.5px solid var(--taupe);
-      font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 500;
-      cursor: pointer; text-decoration: none; display: inline-block;
-      transition: border-color .2s, color .2s, transform .2s;
-    }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-
-    /* Hero image mosaic */
-    .hero-mosaic {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: 220px 220px;
-      gap: 12px;
-      animation: fadeUp .8s ease .2s both;
-    }
-    .mosaic-img {
-      border-radius: var(--radius);
+      min-height: calc(100vh - 106px);
       overflow: hidden;
+    }
+
+    /* Left panel */
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 72px 64px 72px 48px;
+      background: var(--white);
       position: relative;
     }
-    .mosaic-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
-    .mosaic-img:hover img { transform: scale(1.05); }
-    .mosaic-img:first-child { grid-row: span 2; border-radius: var(--radius-lg); }
+    .hero-left::after {
+      content: '';
+      position: absolute; right: 0; top: 10%; bottom: 10%;
+      width: 1px; background: var(--border);
+    }
 
-    /* Hero stats */
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-bottom: 28px;
+    }
+    .eyebrow-line { width: 32px; height: 1.5px; background: var(--terracota); }
+    .eyebrow-text {
+      font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+      font-weight: 600; color: var(--terracota);
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 3.8vw, 4rem);
+      font-weight: 500; line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    .hero h1 em { font-style: italic; color: var(--terracota); }
+
+    .hero-desc {
+      font-size: .97rem; color: var(--text-mid);
+      line-height: 1.8; max-width: 400px;
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 56px; }
+
+    .btn-primary {
+      background: var(--terracota); color: #fff;
+      padding: 13px 30px; border-radius: 50px; border: none;
+      font-family: 'Jost', sans-serif; font-size: .88rem; font-weight: 500;
+      letter-spacing: .04em; cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: background .2s, transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { background: var(--terra-dk); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(196,105,74,.3); }
+
+    .btn-outline {
+      background: transparent; color: var(--text);
+      padding: 13px 30px; border-radius: 50px; border: 1.5px solid var(--border);
+      font-family: 'Jost', sans-serif; font-size: .88rem; font-weight: 500;
+      letter-spacing: .04em; cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center;
+      transition: border-color .2s, color .2s, transform .2s;
+    }
+    .btn-outline:hover { border-color: var(--terracota); color: var(--terracota); transform: translateY(-2px); }
+
+    /* Stats row */
     .hero-stats {
-      display: flex; gap: 32px; margin-top: 40px;
-      animation: fadeUp .8s ease .4s both;
+      display: flex; gap: 0;
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
     }
-    .stat-item { }
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem; font-weight: 600; color: var(--dark);
+    .stat {
+      flex: 1; padding-right: 24px;
+      border-right: 1px solid var(--border);
+      margin-right: 24px;
     }
-    .stat-label { font-size: .78rem; color: var(--text-light); letter-spacing: .04em; }
-
-    /*  SECTION HEADERS  */
-    .section { padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
-    .section-full { padding: 100px 0; }
-
-    .section-tag {
-      font-size: .75rem; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--accent); font-weight: 500; margin-bottom: 12px;
-      display: flex; align-items: center; gap: 10px;
+    .stat:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+    .stat-n {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700; color: var(--text);
+      line-height: 1;
     }
-    .section-tag::before { content: ''; display: block; width: 28px; height: 1px; background: var(--accent); }
+    .stat-n span { color: var(--terracota); }
+    .stat-l { font-size: .75rem; color: var(--text-light); letter-spacing: .05em; text-transform: uppercase; margin-top: 5px; }
 
+    /* Right panel — image */
+    .hero-right {
+      position: relative; overflow: hidden;
+      background: var(--light);
+    }
+    .hero-right img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 8s ease;
+    }
+    .hero-right:hover img { transform: scale(1.03); }
+
+    /* Floating badge on hero image */
+    .hero-badge {
+      position: absolute; bottom: 32px; left: 32px;
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      box-shadow: var(--shadow);
+      display: flex; align-items: center; gap: 14px;
+      min-width: 220px;
+      animation: floatUp .9s ease .3s both;
+    }
+    .badge-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--terracota); flex-shrink: 0;
+      animation: pulseDot 2s infinite;
+    }
+    @keyframes pulseDot {
+      0%,100% { box-shadow: 0 0 0 0 rgba(196,105,74,.4); }
+      50% { box-shadow: 0 0 0 6px rgba(196,105,74,0); }
+    }
+    .badge-text { font-size: .78rem; color: var(--text-mid); }
+    .badge-text strong { display: block; font-size: .9rem; color: var(--text); font-weight: 600; }
+
+    /* ── PROPERTIES ── */
+    .props-section {
+      padding: 100px 0;
+      background: var(--off-white);
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      padding: 0 48px; max-width: 1280px; margin: 0 auto 48px;
+    }
+    .section-label {
+      font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--terracota); font-weight: 600;
+      display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+    }
+    .section-label::before { content: ''; display: block; width: 24px; height: 1.5px; background: var(--terracota); }
     .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 300; color: var(--dark); line-height: 1.2;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 2.5vw, 2.4rem);
+      font-weight: 500; color: var(--text); line-height: 1.2;
     }
 
-    /*  PROPERTIES CAROUSEL  */
-    .properties-section { padding: 100px 0; background: var(--cream); }
-    .properties-header { padding: 0 40px; max-width: 1200px; margin: 0 auto 48px; display: flex; justify-content: space-between; align-items: flex-end; }
+    .carousel-nav { display: flex; gap: 10px; }
+    .c-btn {
+      width: 42px; height: 42px; border-radius: 50%;
+      border: 1.5px solid var(--border); background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--text-mid);
+      transition: all .2s;
+    }
+    .c-btn:hover { background: var(--terracota); border-color: var(--terracota); color: #fff; }
 
-    .carousel-wrapper { position: relative; }
-    .carousel-track-outer {
+    .carousel-outer {
       overflow: hidden;
-      padding: 0 40px 24px;
+      padding: 0 48px 8px;
+      max-width: 1280px; margin: 0 auto;
     }
     .carousel-track {
-      display: flex; gap: 24px;
+      display: flex; gap: 22px;
       transition: transform .5s cubic-bezier(.25,.46,.45,.94);
       will-change: transform;
     }
 
-    .prop-card {
-      flex: 0 0 340px;
-      background: var(--warm-white);
+    /* Property card */
+    .pcard {
+      flex: 0 0 320px;
+      background: var(--white);
       border-radius: var(--radius-lg);
       overflow: hidden;
-      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
       cursor: pointer;
-      transition: transform .3s, box-shadow .3s;
-      position: relative;
+      transition: transform .3s, box-shadow .3s, border-color .3s;
     }
-    .prop-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+    .pcard:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: transparent; }
 
-    .prop-img-wrap {
-      position: relative; height: 220px; overflow: hidden;
-    }
-    .prop-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
-    .prop-card:hover .prop-img-wrap img { transform: scale(1.06); }
+    .pcard-img { position: relative; height: 210px; overflow: hidden; }
+    .pcard-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .pcard:hover .pcard-img img { transform: scale(1.06); }
 
-    .prop-code-badge {
-      position: absolute; top: 14px; left: 14px;
-      background: rgba(28,26,24,.7); backdrop-filter: blur(8px);
-      color: #fff; font-size: .7rem; letter-spacing: .1em;
-      padding: 4px 12px; border-radius: 50px; font-weight: 500;
+    .pcard-code {
+      position: absolute; top: 12px; left: 12px;
+      background: rgba(30,26,23,.72); backdrop-filter: blur(6px);
+      color: #fff; font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+      padding: 4px 11px; border-radius: 50px; font-weight: 500;
     }
-    .prop-tag-badge {
-      position: absolute; top: 14px; right: 14px;
-      background: var(--accent); color: #fff;
-      font-size: .7rem; letter-spacing: .06em;
-      padding: 4px 12px; border-radius: 50px; font-weight: 500;
+    .pcard-tag {
+      position: absolute; top: 12px; right: 12px;
+      background: var(--terracota); color: #fff;
+      font-size: .68rem; letter-spacing: .06em;
+      padding: 4px 11px; border-radius: 50px; font-weight: 500;
     }
 
-    .prop-body { padding: 20px; }
-    .prop-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem; font-weight: 600; color: var(--dark); margin-bottom: 6px;
+    .pcard-body { padding: 20px 22px 22px; }
+    .pcard-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 500; color: var(--text);
+      margin-bottom: 6px;
     }
-    .prop-location {
-      font-size: .82rem; color: var(--text-light);
-      display: flex; align-items: center; gap: 6px; margin-bottom: 16px;
+    .pcard-loc {
+      font-size: .8rem; color: var(--text-light);
+      display: flex; align-items: center; gap: 5px; margin-bottom: 16px;
     }
-    .prop-location svg { flex-shrink: 0; }
-    .prop-price {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem; font-weight: 600; color: var(--accent);
+    .pcard-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700; color: var(--terracota);
+      margin-bottom: 2px;
     }
-    .prop-price-sub { font-size: .78rem; color: var(--text-light); margin-top: 2px; }
+    .pcard-price-note { font-size: .75rem; color: var(--text-light); margin-bottom: 16px; }
 
-    .prop-features {
-      display: flex; gap: 16px; margin-top: 16px; padding-top: 16px;
-      border-top: 1px solid var(--sand);
+    .pcard-feats {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding-top: 14px; border-top: 1px solid var(--light);
     }
-    .prop-feat { font-size: .8rem; color: var(--text-light); display: flex; align-items: center; gap: 5px; }
-
-    /* Carousel nav */
-    .carousel-nav {
-      display: flex; gap: 12px; align-items: center;
+    .pfeat {
+      font-size: .75rem; color: var(--text-mid); font-weight: 500;
+      background: var(--light); padding: 4px 10px; border-radius: 50px;
     }
-    .carousel-btn {
-      width: 44px; height: 44px; border-radius: 50%;
-      border: 1.5px solid var(--taupe); background: transparent;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: all .2s; color: var(--dark);
+
+    /* ── WHY ── */
+    .why-section {
+      padding: 100px 48px;
+      max-width: 1280px; margin: 0 auto;
     }
-    .carousel-btn:hover { background: var(--dark); border-color: var(--dark); color: #fff; }
-
-    /*  MODAL  */
-    .modal-overlay {
-      position: fixed; inset: 0; z-index: 200;
-      background: rgba(28,26,24,.6); backdrop-filter: blur(6px);
-      display: flex; align-items: center; justify-content: center;
-      padding: 20px;
-      opacity: 0; pointer-events: none; transition: opacity .3s;
-    }
-    .modal-overlay.open { opacity: 1; pointer-events: all; }
-
-    .modal {
-      background: var(--warm-white); border-radius: var(--radius-lg);
-      max-width: 760px; width: 100%; max-height: 90vh; overflow-y: auto;
-      transform: translateY(20px) scale(.97); transition: transform .3s;
-      position: relative;
-    }
-    .modal-overlay.open .modal { transform: translateY(0) scale(1); }
-
-    .modal-img { height: 300px; overflow: hidden; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
-    .modal-img img { width: 100%; height: 100%; object-fit: cover; }
-
-    .modal-close {
-      position: absolute; top: 16px; right: 16px;
-      width: 36px; height: 36px; border-radius: 50%;
-      background: rgba(28,26,24,.7); color: #fff; border: none;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; transition: background .2s; z-index: 10;
-    }
-    .modal-close:hover { background: var(--dark); }
-
-    .modal-body { padding: 28px 32px 32px; }
-    .modal-code { font-size: .75rem; letter-spacing: .1em; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
-    .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: var(--dark); margin-bottom: 8px; }
-    .modal-location { color: var(--text-light); font-size: .9rem; margin-bottom: 20px; display: flex; align-items: center; gap: 6px; }
-    .modal-price { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; color: var(--accent); margin-bottom: 20px; }
-
-    .modal-features {
-      display: flex; gap: 20px; flex-wrap: wrap;
-      padding: 16px 0; border-top: 1px solid var(--sand); border-bottom: 1px solid var(--sand);
-      margin-bottom: 20px;
-    }
-    .modal-feat { font-size: .85rem; color: var(--text); display: flex; align-items: center; gap: 6px; }
-
-    .modal-desc { font-size: .92rem; color: var(--text-light); line-height: 1.7; margin-bottom: 24px; }
-
-    .btn-interest {
-      background: var(--accent); color: #fff;
-      padding: 14px 36px; border-radius: 50px; border: none;
-      font-family: 'DM Sans', sans-serif; font-size: .95rem; font-weight: 500;
-      cursor: pointer; transition: all .2s; display: inline-flex; align-items: center; gap: 8px;
-    }
-    .btn-interest:hover { background: var(--dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(28,26,24,.2); }
-
-    /*  WHY  */
     .why-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
-      margin-top: 52px;
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; margin-top: 52px;
     }
     .why-card {
-      padding: 36px 28px;
-      background: var(--cream);
+      padding: 36px 30px;
+      border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      transition: transform .3s, box-shadow .3s;
+      background: var(--white);
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+      position: relative; overflow: hidden;
     }
-    .why-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
-    .why-icon {
-      width: 52px; height: 52px; border-radius: 14px;
-      background: rgba(139,115,85,.15);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 20px; font-size: 1.4rem;
+    .why-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--terracota);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .3s;
+    }
+    .why-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--terra-lt); }
+    .why-card:hover::before { transform: scaleX(1); }
+
+    .why-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; font-weight: 700; color: var(--terra-lt);
+      line-height: 1; margin-bottom: 20px;
     }
     .why-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem; font-weight: 600; color: var(--dark); margin-bottom: 10px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 500; color: var(--text); margin-bottom: 12px;
     }
-    .why-card p { font-size: .88rem; color: var(--text-light); line-height: 1.7; }
+    .why-card p { font-size: .88rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; }
 
-    /*  FORM  */
-    #contacto { background: var(--cream); }
-    .form-section { padding: 100px 40px; }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; max-width: 1200px; margin: 0 auto; }
+    /* ── CONTACT ── */
+    .contact-section {
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      padding: 100px 48px;
+    }
+    .contact-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      max-width: 1280px; margin: 0 auto; align-items: start;
+    }
+    .contact-left { }
+    .contact-left p {
+      font-size: .95rem; color: var(--text-mid); line-height: 1.8;
+      margin-top: 20px; margin-bottom: 36px; font-weight: 300; max-width: 380px;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 14px; }
+    .cinfo-item {
+      display: flex; align-items: center; gap: 14px;
+      font-size: .88rem; color: var(--text-mid);
+    }
+    .cinfo-icon {
+      width: 36px; height: 36px; border-radius: var(--radius-sm);
+      background: var(--terra-lt); display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .cinfo-icon svg { width: 16px; height: 16px; stroke: var(--terracota); }
 
-    .form-left { }
-    .form-left p { font-size: .95rem; color: var(--text-light); line-height: 1.8; margin-top: 20px; max-width: 380px; }
-
-    form { display: flex; flex-direction: column; gap: 16px; }
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    label { font-size: .8rem; letter-spacing: .05em; text-transform: uppercase; color: var(--text-light); font-weight: 500; }
-
-    input, textarea, select {
-      padding: 14px 18px;
-      border: 1.5px solid var(--sand);
-      border-radius: var(--radius);
-      background: var(--warm-white);
-      font-family: 'DM Sans', sans-serif;
-      font-size: .95rem; color: var(--dark);
+    /* Form */
+    .contact-form { display: flex; flex-direction: column; gap: 18px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .fgroup { display: flex; flex-direction: column; gap: 7px; }
+    .fgroup label {
+      font-size: .73rem; letter-spacing: .08em; text-transform: uppercase;
+      font-weight: 600; color: var(--text-mid);
+    }
+    .fgroup input, .fgroup textarea {
+      padding: 13px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      font-family: 'Jost', sans-serif; font-size: .92rem; color: var(--text);
       outline: none; transition: border-color .2s, box-shadow .2s;
       width: 100%;
     }
-    input:focus, textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 4px rgba(139,115,85,.1);
+    .fgroup input:focus, .fgroup textarea:focus {
+      border-color: var(--terracota);
+      box-shadow: 0 0 0 4px rgba(196,105,74,.1);
     }
-    textarea { resize: vertical; min-height: 120px; }
+    .fgroup input[readonly] {
+      background: var(--terra-lt); cursor: default; color: var(--cafe);
+      border-color: var(--cafe-lt);
+    }
+    .fgroup textarea { resize: vertical; min-height: 110px; }
 
     .btn-submit {
-      background: var(--dark); color: var(--cream);
-      padding: 16px 36px; border-radius: 50px; border: none;
-      font-family: 'DM Sans', sans-serif; font-size: .95rem; font-weight: 500;
-      cursor: pointer; display: flex; align-items: center; gap: 10px;
-      transition: all .2s; width: fit-content;
+      align-self: flex-start;
+      background: var(--terracota); color: #fff;
+      padding: 14px 34px; border-radius: 50px; border: none;
+      font-family: 'Jost', sans-serif; font-size: .92rem; font-weight: 500;
+      letter-spacing: .04em; cursor: pointer;
+      display: flex; align-items: center; gap: 10px;
+      transition: background .2s, transform .2s, box-shadow .2s;
     }
-    .btn-submit:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(139,115,85,.3); }
-    .btn-submit svg { width: 20px; height: 20px; }
-    .contact-icon { font-size:.75rem; font-weight:600; letter-spacing:.06em; color:var(--accent); text-transform:uppercase; }
+    .btn-submit:hover { background: var(--terra-dk); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(196,105,74,.3); }
 
-    /*  FOOTER  */
+    /* ── FOOTER ── */
     footer {
-      background: var(--dark); color: rgba(253,252,249,.6);
-      padding: 60px 40px 32px;
+      background: var(--text); color: rgba(255,255,255,.55);
+      padding: 56px 48px 28px;
     }
-    .footer-inner { max-width: 1200px; margin: 0 auto; }
-    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; margin-bottom: 48px; }
-    .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: var(--cream); }
-    .footer-brand-name span { color: var(--accent-light); }
-    .footer-tagline { font-size: .85rem; margin-top: 8px; }
-    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer-links a { color: rgba(253,252,249,.6); text-decoration: none; font-size: .88rem; transition: color .2s; }
-    .footer-links a:hover { color: var(--cream); }
-    .footer-bottom { border-top: 1px solid rgba(253,252,249,.1); padding-top: 24px; font-size: .8rem; text-align: center; }
-
-    /*  DEMO BANNER  */
-    .demo-banner {
-      background: linear-gradient(90deg, var(--accent) 0%, #a08060 100%);
-      color: #fff; text-align: center;
-      padding: 14px 24px; font-size: .85rem;
-      position: relative; z-index: 101;
+    .footer-in { max-width: 1280px; margin: 0 auto; }
+    .footer-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 32px; margin-bottom: 48px;
+      padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,.1);
     }
-    .demo-banner strong { font-weight: 600; }
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700; color: #fff;
+    }
+    .footer-brand span { color: var(--terracota); }
+    .footer-tag { font-size: .82rem; margin-top: 6px; font-weight: 300; }
+    .footer-col { display: flex; flex-direction: column; gap: 12px; }
+    .footer-col-label {
+      font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.35); font-weight: 600; margin-bottom: 4px;
+    }
+    .footer-col a {
+      color: rgba(255,255,255,.55); text-decoration: none;
+      font-size: .87rem; transition: color .2s;
+    }
+    .footer-col a:hover { color: #fff; }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+      font-size: .78rem;
+    }
+    .footer-demo { color: rgba(255,255,255,.25); font-size: .75rem; }
 
-    /*  FLOATING WA  */
-    .wa-float {
-      position: fixed; bottom: 28px; right: 28px; z-index: 150;
-      width: 58px; height: 58px; border-radius: 50%;
-      background: var(--green-wa);
+    /* ── MODAL ── */
+    .modal-bg {
+      position: fixed; inset: 0; z-index: 300;
+      background: rgba(30,26,23,.65); backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+      opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .modal-bg.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--white); border-radius: var(--radius-xl);
+      max-width: 720px; width: 100%; max-height: 90vh; overflow-y: auto;
+      position: relative;
+      transform: translateY(18px) scale(.97);
+      transition: transform .3s;
+    }
+    .modal-bg.open .modal { transform: none; }
+    .modal-img-wrap { height: 280px; overflow: hidden; border-radius: var(--radius-xl) var(--radius-xl) 0 0; }
+    .modal-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-close {
+      position: absolute; top: 14px; right: 14px;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(30,26,23,.7); color: #fff; border: none;
+      cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center;
+      z-index: 10; transition: background .2s;
+    }
+    .modal-close:hover { background: var(--terracota); }
+    .modal-body { padding: 28px 32px 36px; }
+    .modal-code { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--terracota); font-weight: 600; margin-bottom: 6px; }
+    .modal-title { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+    .modal-loc { font-size: .85rem; color: var(--text-light); display: flex; align-items: center; gap: 6px; margin-bottom: 18px; }
+    .modal-price { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--terracota); margin-bottom: 20px; }
+    .modal-feats {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      padding: 16px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .modal-desc { font-size: .9rem; color: var(--text-mid); line-height: 1.8; margin-bottom: 26px; font-weight: 300; }
+    .btn-interest {
+      background: var(--terracota); color: #fff;
+      padding: 13px 30px; border-radius: 50px; border: none;
+      font-family: 'Jost', sans-serif; font-size: .9rem; font-weight: 500;
+      cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+      transition: all .2s;
+    }
+    .btn-interest:hover { background: var(--terra-dk); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(196,105,74,.3); }
+
+    /* ── WA FLOAT ── */
+    .wa-btn {
+      position: fixed; bottom: 26px; right: 26px; z-index: 200;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #25d366; color: #fff;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 6px 24px rgba(37,211,102,.4);
-      cursor: pointer; text-decoration: none;
+      text-decoration: none; box-shadow: 0 6px 24px rgba(37,211,102,.45);
       transition: transform .3s, box-shadow .3s;
-      animation: pulse-wa 2.5s infinite;
+      animation: waPulse 2.8s infinite;
     }
-    .wa-float:hover { transform: scale(1.1); box-shadow: 0 10px 32px rgba(37,211,102,.5); animation: none; }
-    .wa-float svg { width: 28px; height: 28px; fill: #fff; }
+    .wa-btn:hover { transform: scale(1.1); box-shadow: 0 10px 32px rgba(37,211,102,.55); animation: none; }
+    .wa-btn svg { width: 27px; height: 27px; fill: #fff; }
+    @keyframes waPulse {
+      0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,.45); }
+      50% { box-shadow: 0 6px 32px rgba(37,211,102,.65), 0 0 0 10px rgba(37,211,102,.07); }
+    }
 
-    @keyframes pulse-wa {
-      0%, 100% { box-shadow: 0 6px 24px rgba(37,211,102,.4); }
-      50% { box-shadow: 0 6px 32px rgba(37,211,102,.65), 0 0 0 10px rgba(37,211,102,.08); }
-    }
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.on { opacity: 1; transform: none; }
 
-    /*  ANIMATIONS  */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .reveal {
-      opacity: 0; transform: translateY(28px);
-      transition: opacity .7s ease, transform .7s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @keyframes floatUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 
-    /*  RESPONSIVE  */
-    @media (max-width: 900px) {
-      nav { padding: 16px 20px; }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 0 20px; }
       .nav-links { display: none; }
-      .hero { padding: 100px 20px 60px; }
-      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
-      .hero-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: 160px 160px; }
-      .mosaic-img:first-child { grid-row: auto; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 52px 24px; }
+      .hero-left::after { display: none; }
+      .hero-right { height: 300px; }
       .why-grid { grid-template-columns: 1fr; }
-      .form-grid { grid-template-columns: 1fr; }
-      .section { padding: 60px 20px; }
-      .form-section { padding: 60px 20px; }
-      .properties-header { padding: 0 20px; flex-direction: column; align-items: flex-start; gap: 16px; }
-      .carousel-track-outer { padding: 0 20px 20px; }
+      .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+      .form-row { grid-template-columns: 1fr; }
+      .section-header { padding: 0 20px; flex-direction: column; align-items: flex-start; gap: 16px; }
+      .carousel-outer { padding: 0 20px 8px; }
+      .why-section { padding: 60px 20px; }
+      .contact-section { padding: 60px 20px; }
+      footer { padding: 48px 20px 24px; }
       .footer-top { flex-direction: column; }
+      .footer-bottom { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-<!-- DEMO BANNER -->
-<div class="demo-banner">
-   Esta página es un <strong>ejemplo funcional</strong> — adapta el contenido y propiedades a tu negocio
+<!-- DEMO STRIP -->
+<div class="demo-strip">
+  Esta pagina es un <strong>ejemplo funcional</strong> — adapta el contenido y propiedades a tu negocio
 </div>
 
 <!-- NAV -->
-<nav id="navbar">
+<nav id="nav">
   <a href="#" class="nav-logo">NUKU<span>.</span></a>
   <ul class="nav-links">
     <li><a href="#propiedades">Propiedades</a></li>
     <li><a href="#nosotros">Nosotros</a></li>
-    <li><a href="#contacto" class="nav-cta">Contactar</a></li>
+    <li><a href="#contacto" class="nav-pill">Contactar</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-deco hero-deco-1"></div>
-  <div class="hero-deco hero-deco-2"></div>
-
-  <div class="hero-inner">
-    <div class="hero-text">
-      <div class="hero-badge">Inmobiliaria de confianza</div>
-      <h1>Tu próximo hogar <em>te está esperando</em></h1>
-      <p class="hero-sub">Encontrá la propiedad ideal entre nuestra selección de casas, departamentos y emprendimientos exclusivos en Córdoba y alrededores.</p>
-      <div class="hero-actions">
-        <a href="#propiedades" class="btn-primary">Ver propiedades</a>
-        <a href="#contacto" class="btn-outline">Consultanos</a>
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Inmobiliaria en Cordoba</span>
+    </div>
+    <h1>Tu lugar ideal<br><em>ya existe.</em><br>Te ayudamos<br>a encontrarlo.</h1>
+    <p class="hero-desc">Casas, departamentos y emprendimientos cuidadosamente seleccionados en Cordoba y sus alrededores.</p>
+    <div class="hero-actions">
+      <a href="#propiedades" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Ver propiedades
+      </a>
+      <a href="#contacto" class="btn-outline">Contactanos</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-n"><span>+</span>120</div>
+        <div class="stat-l">Propiedades</div>
       </div>
-      <div class="hero-stats">
-        <div class="stat-item">
-          <div class="stat-num">+120</div>
-          <div class="stat-label">Propiedades</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">8</div>
-          <div class="stat-label">Años de experiencia</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">+500</div>
-          <div class="stat-label">Familias felices</div>
-        </div>
+      <div class="stat">
+        <div class="stat-n">8</div>
+        <div class="stat-l">Anos de trayectoria</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n"><span>+</span>500</div>
+        <div class="stat-l">Familias</div>
       </div>
     </div>
+  </div>
 
-    <div class="hero-mosaic" id="heroMosaic">
-      <!-- Images inserted by JS -->
+  <div class="hero-right">
+    <img id="heroImg" src="" alt="Departamento luminoso en Cordoba"/>
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      <div class="badge-text">
+        <strong>Propiedades disponibles</strong>
+        Consulta sin compromiso
+      </div>
     </div>
   </div>
 </section>
 
 <!-- PROPERTIES -->
-<section class="properties-section" id="propiedades">
-  <div class="properties-header">
+<section class="props-section" id="propiedades">
+  <div class="section-header reveal">
     <div>
-      <div class="section-tag">Nuestras propiedades</div>
-      <h2 class="section-title">Selección <em style="font-style:italic;font-family:'Cormorant Garamond',serif;">destacada</em></h2>
+      <div class="section-label">Seleccion destacada</div>
+      <h2 class="section-title">Propiedades <em style="font-family:'Playfair Display',serif;font-style:italic;">disponibles</em></h2>
     </div>
     <div class="carousel-nav">
-      <button class="carousel-btn" id="prevBtn" aria-label="Anterior">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>
+      <button class="c-btn" id="prevBtn" aria-label="Anterior">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15,18 9,12 15,6"/></svg>
       </button>
-      <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg>
+      <button class="c-btn" id="nextBtn" aria-label="Siguiente">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9,18 15,12 9,6"/></svg>
       </button>
     </div>
   </div>
-
-  <div class="carousel-wrapper">
-    <div class="carousel-track-outer">
-      <div class="carousel-track" id="carouselTrack">
-        <!-- Cards inserted by JS -->
-      </div>
-    </div>
+  <div class="carousel-outer">
+    <div class="carousel-track" id="track"></div>
   </div>
 </section>
 
-<!-- WHY US -->
+<!-- WHY -->
 <section id="nosotros">
-  <div class="section reveal">
-    <div class="section-tag">Por qué elegirnos</div>
-    <h2 class="section-title">Un equipo comprometido<br>con tu tranquilidad</h2>
+  <div class="why-section reveal">
+    <div class="section-label">Por que elegirnos</div>
+    <h2 class="section-title" style="margin-top:8px;">Un equipo que trabaja<br>por tu tranquilidad</h2>
     <div class="why-grid">
       <div class="why-card">
-        <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-        <h3>Asesoramiento personalizado</h3>
-        <p>Te acompañamos en cada paso del proceso: desde la búsqueda hasta la escritura, con atención dedicada y sin apuro.</p>
+        <div class="why-num">01</div>
+        <h3>Asesoria personalizada</h3>
+        <p>Te acompanamos desde la busqueda hasta la escritura. Sin apuro, con atencion dedicada y honestidad en cada paso.</p>
       </div>
       <div class="why-card">
-        <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/></svg></div>
-        <h3>Gestión integral</h3>
-        <p>Nos encargamos de los trámites, documentación y coordinación con escribanos para que vos solo te preocupes por elegir.</p>
+        <div class="why-num">02</div>
+        <h3>Gestion integral</h3>
+        <p>Coordinamos con escribanos, gestionamos documentacion y resolvemos cada detalle para que vos solo elijas.</p>
       </div>
       <div class="why-card">
-        <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="why-num">03</div>
         <h3>Conocimiento local</h3>
-        <p>Más de 8 años en el mercado cordobés nos dan un conocimiento profundo de los barrios, precios y oportunidades reales.</p>
+        <p>Mas de 8 anos en el mercado cordob&#233;s nos dan vision real sobre barrios, precios y oportunidades genuinas.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT FORM -->
-<section id="contacto" class="form-section">
-  <div class="form-grid">
-    <div class="form-left reveal">
-      <div class="section-tag">Contacto</div>
-      <h2 class="section-title">¿Te interesa<br><em style="font-style:italic;font-family:'Cormorant Garamond',serif;">alguna propiedad?</em></h2>
+<!-- CONTACT -->
+<section class="contact-section" id="contacto">
+  <div class="contact-inner">
+    <div class="contact-left reveal">
+      <div class="section-label">Contacto</div>
+      <h2 class="section-title" style="margin-top:8px;">Hablemos<br><em style="font-family:'Playfair Display',serif;font-style:italic;color:var(--terracota);">sin compromiso</em></h2>
       <p>Completá el formulario y te respondemos a la brevedad. También podés escribirnos directo por WhatsApp.</p>
-
-      <div style="margin-top:40px;display:flex;flex-direction:column;gap:16px;">
-        <div style="display:flex;align-items:center;gap:12px;color:var(--text-light);font-size:.9rem;">
-          <span class="contact-icon">T.</span> +54 9 351 248-0971
+      <div class="contact-info">
+        <div class="cinfo-item">
+          <div class="cinfo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.37 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.71 5.71l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.08 16z"/></svg>
+          </div>
+          +54 9 351 248-0971
         </div>
-        <div style="display:flex;align-items:center;gap:12px;color:var(--text-light);font-size:.9rem;">
-          <span class="contact-icon">E.</span> info@nukuinmobiliaria.com.ar
+        <div class="cinfo-item">
+          <div class="cinfo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          info@nukuinmobiliaria.com.ar
         </div>
-        <div style="display:flex;align-items:center;gap:12px;color:var(--text-light);font-size:.9rem;">
-          <span class="contact-icon">Dir.</span> Córdoba, Argentina
+        <div class="cinfo-item">
+          <div class="cinfo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          Cordoba, Argentina
         </div>
       </div>
     </div>
 
     <div class="reveal">
-      <form id="contactForm">
-        <div class="form-group">
-          <label for="nombre">Nombre completo *</label>
-          <input type="text" id="nombre" name="nombre" placeholder="Ej: María González" required />
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="fgroup">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" placeholder="Maria Gonzalez" required/>
+          </div>
+          <div class="fgroup">
+            <label for="telefono">Telefono</label>
+            <input type="tel" id="telefono" placeholder="351 123-4567" required/>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="telefono">Teléfono *</label>
-          <input type="tel" id="telefono" name="telefono" placeholder="Ej: 351 123-4567" required />
+        <div class="fgroup">
+          <label for="codigo">Codigo de propiedad</label>
+          <input type="text" id="codigo" placeholder="Se completa al hacer clic en Me interesa" readonly/>
         </div>
-        <div class="form-group">
-          <label for="codigoProp">Código de propiedad</label>
-          <input type="text" id="codigoProp" name="codigoProp" placeholder="Se autocompleta al hacer click en 'Me interesa'" readonly style="background:var(--sand);cursor:default;" />
-        </div>
-        <div class="form-group">
+        <div class="fgroup">
           <label for="mensaje">Mensaje</label>
-          <textarea id="mensaje" name="mensaje" placeholder="¿Qué querés saber sobre esta propiedad?"></textarea>
+          <textarea id="mensaje" placeholder="&#191;Que querés saber sobre esta propiedad?"></textarea>
         </div>
         <button type="submit" class="btn-submit">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
           Enviar por WhatsApp
         </button>
       </form>
@@ -629,250 +706,174 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
+  <div class="footer-in">
     <div class="footer-top">
       <div>
-        <div class="footer-brand-name">NUKU<span>.</span></div>
-        <div class="footer-tagline">Tu hogar, nuestra misión.</div>
+        <div class="footer-brand">NUKU<span>.</span></div>
+        <div class="footer-tag">Tu hogar, nuestra mision.</div>
       </div>
-      <ul class="footer-links">
-        <li><a href="#propiedades">Propiedades</a></li>
-        <li><a href="#nosotros">Nosotros</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-      </ul>
-      <div style="font-size:.85rem;max-width:260px;line-height:1.7;">
-        Córdoba, Argentina<br>
-        <a href="tel:+5493512480971" style="color:rgba(253,252,249,.6);text-decoration:none;">+54 9 351 248-0971</a>
+      <div class="footer-col">
+        <div class="footer-col-label">Navegacion</div>
+        <a href="#propiedades">Propiedades</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Contacto</div>
+        <a href="tel:+5493512480971">+54 9 351 248-0971</a>
+        <a href="mailto:info@nukuinmobiliaria.com.ar">info@nukuinmobiliaria.com.ar</a>
+        <span>Cordoba, Argentina</span>
       </div>
     </div>
     <div class="footer-bottom">
-      © 2025 NUKU Inmobiliaria. Todos los derechos reservados. &nbsp;·&nbsp; 
-      <span style="color:rgba(253,252,249,.35);">Esta es una página de demostración</span>
+      <span>© 2025 NUKU Inmobiliaria. Todos los derechos reservados.</span>
+      <span class="footer-demo">Pagina de demostracion</span>
     </div>
   </div>
 </footer>
 
 <!-- WA FLOAT -->
-<a class="wa-float" href="https://wa.me/5493512480971" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
-  </svg>
+<a class="wa-btn" href="https://wa.me/5493512480971" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
 </a>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
-  <div class="modal" id="modalContent">
-    <button class="modal-close" id="modalClose" aria-label="Cerrar"></button>
-    <div class="modal-img"><img id="modalImg" src="" alt="" /></div>
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">&#10005;</button>
+    <div class="modal-img-wrap"><img id="mImg" src="" alt=""/></div>
     <div class="modal-body">
-      <div class="modal-code" id="modalCode"></div>
-      <h2 class="modal-title" id="modalTitle"></h2>
-      <div class="modal-location" id="modalLocation">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span id="modalLocationText"></span>
+      <div class="modal-code" id="mCode"></div>
+      <h2 class="modal-title" id="mTitle"></h2>
+      <div class="modal-loc">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span id="mLoc"></span>
       </div>
-      <div class="modal-price" id="modalPrice"></div>
-      <div class="modal-features" id="modalFeatures"></div>
-      <p class="modal-desc" id="modalDesc"></p>
-      <button class="btn-interest" id="btnInterest">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        Me interesa esta propiedad
-      </button>
+      <div class="modal-price" id="mPrice"></div>
+      <div class="modal-feats" id="mFeats"></div>
+      <p class="modal-desc" id="mDesc"></p>
+      <button class="btn-interest" id="btnInterest">Me interesa esta propiedad</button>
     </div>
   </div>
 </div>
 
 <script src="images.js"></script>
 <script>
-//  DATA 
-const properties = [
-  {
-    code: "PROP-001",
-    title: "Departamento Premium",
-    location: "Nueva Córdoba, Córdoba",
-    price: "USD 125.000",
-    priceNote: "Precio de lista",
-    tag: "En venta",
-    features: [" 2 amb", " 1 baño", " 55 m²", " Cochera"],
-    desc: "Moderno departamento con terminaciones de primera calidad, balcón con vista al verde y amenities de lujo. Cocina integrada con isla, luminoso y silencioso.",
-    imgKey: "prop1"
-  },
-  {
-    code: "PROP-002",
-    title: "Casa Familiar",
-    location: "Villa Allende, Córdoba",
-    price: "USD 85.000",
-    priceNote: "Precio de lista",
-    tag: "En venta",
-    features: [" 3 dorm", " 2 baños", " 110 m²", " Jardín"],
-    desc: "Amplia casa familiar en barrio residencial tranquilo. Jardín con parrilla, garage doble, tres dormitorios amplios y living-comedor con mucha luz natural.",
-    imgKey: "prop2"
-  },
-  {
-    code: "PROP-003",
-    title: "Casa en Conjunto",
-    location: "Arguello, Córdoba",
-    price: "USD 72.000",
-    priceNote: "Precio de lista",
-    tag: "Oportunidad",
-    features: [" 2 dorm", " 1 baño", " 90 m²", " Seguridad"],
-    desc: "Casa en barrio cerrado con seguridad 24hs. Dos dormitorios, patio amplio y zona de lavadero. Excelente ubicación con acceso a avenidas principales.",
-    imgKey: "prop3"
-  },
-  {
-    code: "PROP-004",
-    title: "Chalet Duplex",
-    location: "Mar del Plata, Buenos Aires",
-    price: "USD 210.000",
-    priceNote: "Precio de lista",
-    tag: "Premium",
-    features: [" 4 dorm", " 3 baños", " 220 m²", " Pileta"],
-    desc: "Espectacular chalet estilo alpino frente a la costa. Cuatro dormitorios en suite, amplio parque con pileta y parrilla cubierta. Edificio doble con diseño único.",
-    imgKey: "prop4"
-  },
-  {
-    code: "PROP-005",
-    title: "PH Duplex Interior",
-    location: "Güemes, Córdoba",
-    price: "USD 95.000",
-    priceNote: "Precio de lista",
-    tag: "En venta",
-    features: [" 2 dorm", " 1 baño", " 80 m²", " Patio"],
-    desc: "Penthouse duplex con escalera de madera y hierro, cocina integrada al estar y patio propio. Ideal para inversión o vivienda. Zona de alto valor en Córdoba.",
-    imgKey: "prop5"
-  },
-  {
-    code: "PROP-006",
-    title: "Edificio Wolf Tower",
-    location: "Palermo, Córdoba",
-    price: "Desde USD 68.000",
-    priceNote: "Unidades disponibles",
-    tag: "Emprendimiento",
-    features: [" 1-3 amb", " 1-2 baños", " 35-90 m²", " Amenities"],
-    desc: "Emprendimiento de lujo con arquitectura bioclimática, terrazas envolventes y espacios comunes de primer nivel. Entrega 2026. Financiación en pesos disponible.",
-    imgKey: "prop6"
-  }
+const props = [
+  { code:"PROP-001", title:"Departamento Premium", location:"Nueva Cordoba, Cordoba", price:"USD 125.000", note:"Precio de lista", tag:"En venta",
+    feats:["2 ambientes","1 bano","55 m2","Cochera"],
+    desc:"Moderno departamento con terminaciones de primera calidad, balcon con vista al verde y amenities de lujo. Cocina integrada con isla, luminoso y silencioso.", imgKey:"prop1" },
+  { code:"PROP-002", title:"Casa Familiar", location:"Villa Allende, Cordoba", price:"USD 85.000", note:"Precio de lista", tag:"En venta",
+    feats:["3 dormitorios","2 banos","110 m2","Jardin"],
+    desc:"Amplia casa familiar en barrio residencial tranquilo. Jardin con parrilla, garage doble, tres dormitorios amplios y living-comedor con mucha luz natural.", imgKey:"prop2" },
+  { code:"PROP-003", title:"Casa en Conjunto", location:"Arguello, Cordoba", price:"USD 72.000", note:"Precio de lista", tag:"Oportunidad",
+    feats:["2 dormitorios","1 bano","90 m2","Seguridad"],
+    desc:"Casa en barrio cerrado con seguridad 24hs. Dos dormitorios, patio amplio y zona de lavadero. Excelente ubicacion con acceso a avenidas principales.", imgKey:"prop3" },
+  { code:"PROP-004", title:"Chalet Duplex", location:"Mar del Plata, Buenos Aires", price:"USD 210.000", note:"Precio de lista", tag:"Premium",
+    feats:["4 dormitorios","3 banos","220 m2","Pileta"],
+    desc:"Espectacular chalet estilo alpino frente a la costa. Cuatro dormitorios en suite, amplio parque con pileta y parrilla cubierta. Edificio doble con diseno unico.", imgKey:"prop4" },
+  { code:"PROP-005", title:"PH Duplex Interior", location:"Guemes, Cordoba", price:"USD 95.000", note:"Precio de lista", tag:"En venta",
+    feats:["2 dormitorios","1 bano","80 m2","Patio propio"],
+    desc:"Penthouse duplex con escalera de madera y hierro, cocina integrada al estar y patio propio. Ideal para inversion o vivienda. Zona de alto valor en Cordoba.", imgKey:"prop5" },
+  { code:"PROP-006", title:"Wolf Tower", location:"Palermo, Cordoba", price:"Desde USD 68.000", note:"Unidades disponibles", tag:"Emprendimiento",
+    feats:["1 a 3 ambientes","1-2 banos","35-90 m2","Amenities"],
+    desc:"Emprendimiento de lujo con arquitectura bioclimatica, terrazas envolventes y espacios comunes de primer nivel. Entrega 2026. Financiacion en pesos disponible.", imgKey:"prop6" },
 ];
 
-//  BUILD HERO MOSAIC 
-const heroMosaic = document.getElementById('heroMosaic');
-['prop1','prop4','prop6'].forEach((key, i) => {
-  const div = document.createElement('div');
-  div.className = 'mosaic-img';
-  div.innerHTML = `<img src="${IMAGES[key]}" alt="Propiedad ${i+1}" loading="lazy"/>`;
-  heroMosaic.appendChild(div);
-});
+// Set hero image
+document.getElementById('heroImg').src = IMAGES['prop1'];
 
-//  BUILD CAROUSEL CARDS 
-const track = document.getElementById('carouselTrack');
-properties.forEach(p => {
-  const card = document.createElement('div');
-  card.className = 'prop-card';
-  card.innerHTML = `
-    <div class="prop-img-wrap">
+// Build carousel
+const track = document.getElementById('track');
+props.forEach(p => {
+  const c = document.createElement('div');
+  c.className = 'pcard';
+  c.innerHTML = `
+    <div class="pcard-img">
       <img src="${IMAGES[p.imgKey]}" alt="${p.title}" loading="lazy"/>
-      <div class="prop-code-badge">${p.code}</div>
-      <div class="prop-tag-badge">${p.tag}</div>
+      <div class="pcard-code">${p.code}</div>
+      <div class="pcard-tag">${p.tag}</div>
     </div>
-    <div class="prop-body">
-      <div class="prop-title">${p.title}</div>
-      <div class="prop-location">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    <div class="pcard-body">
+      <div class="pcard-title">${p.title}</div>
+      <div class="pcard-loc">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         ${p.location}
       </div>
-      <div class="prop-price">${p.price}</div>
-      <div class="prop-price-sub">${p.priceNote}</div>
-      <div class="prop-features">${p.features.map(f=>`<span class="prop-feat">${f}</span>`).join('')}</div>
-    </div>
-  `;
-  card.addEventListener('click', () => openModal(p));
-  track.appendChild(card);
+      <div class="pcard-price">${p.price}</div>
+      <div class="pcard-price-note">${p.note}</div>
+      <div class="pcard-feats">${p.feats.map(f=>`<span class="pfeat">${f}</span>`).join('')}</div>
+    </div>`;
+  c.addEventListener('click', () => openModal(p));
+  track.appendChild(c);
 });
 
-//  CAROUSEL LOGIC 
-let currentIndex = 0;
-const cardWidth = 340 + 24; // card + gap
-const visibleCards = () => Math.floor(document.querySelector('.carousel-track-outer').offsetWidth / cardWidth);
-
+// Carousel
+let idx = 0;
+const cardW = 320 + 22;
+function visCount() { return Math.floor(document.querySelector('.carousel-outer').offsetWidth / cardW); }
 function updateCarousel() {
-  const max = properties.length - visibleCards();
-  currentIndex = Math.max(0, Math.min(currentIndex, max));
-  track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+  const max = Math.max(0, props.length - visCount());
+  idx = Math.max(0, Math.min(idx, max));
+  track.style.transform = `translateX(-${idx * cardW}px)`;
 }
+document.getElementById('nextBtn').addEventListener('click', () => { idx++; updateCarousel(); });
+document.getElementById('prevBtn').addEventListener('click', () => { idx--; updateCarousel(); });
 
-document.getElementById('nextBtn').addEventListener('click', () => { currentIndex++; updateCarousel(); });
-document.getElementById('prevBtn').addEventListener('click', () => { currentIndex--; updateCarousel(); });
-
-// Touch/swipe
-let startX = 0;
-track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+let tx = 0;
+track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
 track.addEventListener('touchend', e => {
-  const dx = startX - e.changedTouches[0].clientX;
-  if (Math.abs(dx) > 50) { dx > 0 ? currentIndex++ : currentIndex--; updateCarousel(); }
+  const dx = tx - e.changedTouches[0].clientX;
+  if (Math.abs(dx) > 48) { dx > 0 ? idx++ : idx--; updateCarousel(); }
 });
 
-//  MODAL 
-const overlay = document.getElementById('modalOverlay');
-const modalClose = document.getElementById('modalClose');
-
+// Modal
+const bg = document.getElementById('modalBg');
 function openModal(p) {
-  document.getElementById('modalImg').src = IMAGES[p.imgKey];
-  document.getElementById('modalImg').alt = p.title;
-  document.getElementById('modalCode').textContent = p.code;
-  document.getElementById('modalTitle').textContent = p.title;
-  document.getElementById('modalLocationText').textContent = p.location;
-  document.getElementById('modalPrice').textContent = p.price;
-  document.getElementById('modalFeatures').innerHTML = p.features.map(f=>`<span class="modal-feat">${f}</span>`).join('');
-  document.getElementById('modalDesc').textContent = p.desc;
-
+  document.getElementById('mImg').src = IMAGES[p.imgKey];
+  document.getElementById('mCode').textContent = p.code;
+  document.getElementById('mTitle').textContent = p.title;
+  document.getElementById('mLoc').textContent = p.location;
+  document.getElementById('mPrice').textContent = p.price;
+  document.getElementById('mFeats').innerHTML = p.feats.map(f=>`<span class="pfeat">${f}</span>`).join('');
+  document.getElementById('mDesc').textContent = p.desc;
   document.getElementById('btnInterest').onclick = () => {
     closeModal();
-    document.getElementById('codigoProp').value = p.code;
+    document.getElementById('codigo').value = p.code;
     document.getElementById('mensaje').value = `Hola, estoy interesado/a en la propiedad ${p.code} que vi en su web.`;
-    setTimeout(() => {
-      document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
-    }, 300);
+    setTimeout(() => document.getElementById('contacto').scrollIntoView({behavior:'smooth'}), 280);
   };
-
-  overlay.classList.add('open');
+  bg.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-
-function closeModal() {
-  overlay.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-modalClose.addEventListener('click', closeModal);
-overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+function closeModal() { bg.classList.remove('open'); document.body.style.overflow = ''; }
+document.getElementById('modalClose').addEventListener('click', closeModal);
+bg.addEventListener('click', e => { if (e.target === bg) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-//  FORM → WHATSAPP 
-document.getElementById('contactForm').addEventListener('submit', function(e) {
+// Form → WhatsApp
+document.getElementById('contactForm').addEventListener('submit', e => {
   e.preventDefault();
   const nombre = document.getElementById('nombre').value.trim();
-  const telefono = document.getElementById('telefono').value.trim();
-  const codigo = document.getElementById('codigoProp').value.trim();
-  const mensaje = document.getElementById('mensaje').value.trim();
-
-  const propText = codigo ? `la propiedad ${codigo}` : 'sus propiedades';
-  const text = `Hola, estoy interesado/a en ${propText} que vi en su web.\n\n Nombre: ${nombre}\n Tel: ${telefono}${mensaje ? '\n ' + mensaje : ''}`;
-  const url = `https://wa.me/5493512480971?text=${encodeURIComponent(text)}`;
-  window.open(url, '_blank');
+  const tel = document.getElementById('telefono').value.trim();
+  const cod = document.getElementById('codigo').value.trim();
+  const msg = document.getElementById('mensaje').value.trim();
+  const prop = cod ? `la propiedad ${cod}` : 'sus propiedades';
+  const text = `Hola, estoy interesado/a en ${prop} que vi en su web.\n\nNombre: ${nombre}\nTelefono: ${tel}${msg ? '\nMensaje: '+msg : ''}`;
+  window.open(`https://wa.me/5493512480971?text=${encodeURIComponent(text)}`, '_blank');
 });
 
-//  NAV SCROLL 
-const navbar = document.getElementById('navbar');
+// Nav shadow on scroll
 window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  document.getElementById('nav').classList.toggle('shadowed', window.scrollY > 10);
 });
 
-//  REVEAL ON SCROLL 
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.12 });
-reveals.forEach(r => observer.observe(r));
+// Reveal
+const revealEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold: 0.1 });
+revealEls.forEach(r => obs.observe(r));
 </script>
 </body>
 </html>
